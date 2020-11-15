@@ -117,6 +117,12 @@ app.post("/addNewIdenity", (req, res) => {
 });
 
 
+
+app.get("/getFiscalChain", (req, res) => {
+  // let smashingCoin = new CryptoBlockchain();
+  res.send(JSON.stringify({action:"updateChain",chain:JSON.stringify(GATFiscalChain)}));
+});
+
 server.listen(process.env.PORT || 4433, () => {
     console.log(`Server started on port ${server.address().port} :)`);
 });
