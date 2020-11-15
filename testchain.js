@@ -117,6 +117,28 @@ app.post("/addNewIdenity", (req, res) => {
 });
 
 
+app.get("/genkeys", (req, res) => {
+  const { generateKeyPair } = require('crypto');
+  generateKeyPair('rsa', {
+    modulusLength: 4096,
+    publicKeyEncoding: {
+      type: 'spki',
+      format: 'pem'
+    },
+    privateKeyEncoding: {
+      type: 'pkcs8',
+      format: 'pem',
+      cipher: 'aes-256-cbc',
+      passphrase: 'top secret'
+    }
+  }, (err, publicKey, privateKey) => {
+    // Handle errors and use the generated key pair.
+     console.log(publicKey);
+     console.log(privateKey);
+
+     res.send(JSON.stringify({pk:publicKey,sk:privateKey}));
+  });
+});
 
 app.get("/getFiscalChain", (req, res) => {
   // let smashingCoin = new CryptoBlockchain();
