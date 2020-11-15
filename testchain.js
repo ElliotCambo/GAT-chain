@@ -150,6 +150,13 @@ server.listen(process.env.PORT || 4433, () => {
 });
 
 
+
+
+
+
+
+
+
 class CryptoBlock {
   constructor(index, timestamp, data, precedingHash = " ") {
     this.index = index;
@@ -179,6 +186,16 @@ class CryptoBlock {
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
 
 class CryptoBlockchain {
   constructor() {
