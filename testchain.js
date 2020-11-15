@@ -347,7 +347,7 @@ class CryptoAccountBlockchain {
   startGenesisBlock() {
     var today = new Date();
     var date = today.getTime() / 1000
-    console.log("Initial Block in the IDENTITY Chain");
+    console.log("Initial Block in the ACCOUNT Chain");
     return new CryptoAccountBlock(0, date, "Initial Block in the IDENTITY Chain", "0");
   }
 
