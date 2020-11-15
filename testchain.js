@@ -57,37 +57,65 @@ setInterval(function () {
 }, 10000);
 
 
-app.get("/getChain", (req, res) => {
+app.get("/getTransactionChain", (req, res) => {
   // let smashingCoin = new CryptoBlockchain();
-  res.send(JSON.stringify({action:"updateChain",chain:JSON.stringify(smashingCoin)}));
+  res.send(JSON.stringify({action:"updateChain",chain:JSON.stringify(GATTransacitonChain)}));
 });
 
-app.post("/addNewBlock", (req, res) => {
+
+app.post("/addNewTransaction", (req, res) => {
   console.log("New block being added");
 
   var seconds = new Date().getTime() / 1000;
   // let smashingCoin = new CryptoBlockchain();
   console.log("smashingCoin mining in progress....");
-  smashingCoin.addNewBlock(
-    new CryptoBlock(1, "01/06/2020", {
-      sender: "Iris Ljesnjanin",
-      recipient: "Cosima Mielke",
-      quantity: 50
-    })
+  GATTransacitonChain.addNewBlock(
+    new CryptoBlock(1, "01/06/2020", req.body.transaction)
   );
 
   wss.clients.forEach(client => {
       if (client != wss) {
       
-          client.send(JSON.stringify({action:"updateChain",chain:JSON.stringify(smashingCoin)}));
+          client.send(JSON.stringify({action:"updateChain",chain:JSON.stringify(GATTransacitonChain)}));
       } 
   });
 
-  console.log(JSON.stringify(smashingCoin));
+  console.log(JSON.stringify(GATTransacitonChain));
+  res.sendStatus(200);
+
+});
+
+
+
+app.get("/getIdentityChain", (req, res) => {
+  // let smashingCoin = new CryptoBlockchain();
+  res.send(JSON.stringify({action:"updateChain",chain:JSON.stringify(GATidenityChain)}));
+});
+
+
+app.post("/addNewIdenity", (req, res) => {
+  console.log("New block being added");
+
+  var seconds = new Date().getTime() / 1000;
+  // let smashingCoin = new CryptoBlockchain();
+  console.log("smashingCoin mining in progress....");
+  GATidenityChain.addNewBlock(
+    new CryptoIdenityBlock(1, "01/06/2020", req.body.idenity)
+  );
+
+  wss.clients.forEach(client => {
+      if (client != wss) {
+      
+          client.send(JSON.stringify({action:"updateChain",chain:JSON.stringify(GATidenityChain)}));
+      } 
+  });
+
+  console.log(JSON.stringify(GATidenityChain));
 
   res.sendStatus(200);
 
 });
+
 
 server.listen(process.env.PORT || 4433, () => {
     console.log(`Server started on port ${server.address().port} :)`);
@@ -130,7 +158,10 @@ class CryptoBlockchain {
     this.difficulty = 4;
   }
   startGenesisBlock() {
-    return new CryptoBlock(0, "01/01/2020", "Initial Block in the Chain", "0");
+    var today = new Date();
+    var date = today.getTime() / 1000
+    console.log(date);
+    return new CryptoBlock(0, date, "Initial Block in the Chain", "0");
   }
 
   obtainLatestBlock() {
@@ -156,4 +187,97 @@ class CryptoBlockchain {
     return true;
   }
 }
- let smashingCoin = new CryptoBlockchain();
+ let GATTransacitonChain = new CryptoBlockchain();  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class CryptoIdenityBlock {
+  constructor(index, timestamp, data, precedingHash = " ") {
+    this.index = index;
+    this.timestamp = timestamp;
+    this.data = data;
+    this.precedingHash = precedingHash;
+    this.hash = this.computeHash();
+    this.nonce = 0;
+  }
+
+  computeHash() {
+    return SHA256(
+      this.index +
+        this.precedingHash +
+        this.timestamp +
+        JSON.stringify(this.data) +
+        this.nonce
+    ).toString();
+  }
+
+  proofOfWork(difficulty) {
+    while (
+      this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("0")
+    ) {
+      this.nonce++;
+      this.hash = this.computeHash();
+    }
+  }
+}
+
+class CryptoIdenityBlockchain {
+  constructor() {
+    this.blockchain = [this.startGenesisBlock()];
+    this.difficulty = 4;
+  }
+  startGenesisBlock() {
+    var today = new Date();
+    var date = today.getTime() / 1000
+    console.log(date);
+    return new CryptoIdenityBlock(0, date, "Initial Block in the Chain", "0");
+  }
+
+  obtainLatestBlock() {
+    return this.blockchain[this.blockchain.length - 1];
+  }
+  addNewBlock(newBlock) {
+    newBlock.precedingHash = this.obtainLatestBlock().hash;
+    //newBlock.hash = newBlock.computeHash();
+    newBlock.proofOfWork(this.difficulty);
+    this.blockchain.push(newBlock);
+  }
+
+  checkChainValidity() {
+    for (let i = 1; i < this.blockchain.length; i++) {
+      const currentBlock = this.blockchain[i];
+      const precedingBlock = this.blockchain[i - 1];
+
+      if (currentBlock.hash !== currentBlock.computeHash()) {
+        return false;
+      }
+      if (currentBlock.precedingHash !== precedingBlock.hash) return false;
+    }
+    return true;
+  }
+}
+
+ let GATidenityChain = new CryptoIdentityBlockchain();  
+
+
+
+
+
+
+
+
+
+
+
+
