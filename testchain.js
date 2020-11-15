@@ -82,8 +82,10 @@ app.post("/addNewTransaction", (req, res) => {
   });
 
   console.log(JSON.stringify(GATTransacitonChain));
-  res.sendStatus(200);
+  // res.sendStatus(200);
 
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify({action:"updateChain",chain:JSON.stringify(GATTransacitonChain)}));
 });
 
 
@@ -114,7 +116,9 @@ app.post("/addNewIdenity", (req, res) => {
 
   console.log(JSON.stringify(GATidenityChain));
 
-  res.sendStatus(200);
+  // res.sendStatus(200);
+   res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify({action:"updateChain",chain:JSON.stringify(GATidenityChain)}));
 
 });
 
