@@ -128,7 +128,8 @@ app.get("/genkeys", (req, res) => {
     privateKeyEncoding: {
       type: 'pkcs8',
       format: 'pem',
-      cipher: 'aes-256-cbc'
+      cipher: 'aes-256-cbc',
+      passphrase: ""
     }
   }, (err, publicKey, privateKey) => {
     // Handle errors and use the generated key pair.
