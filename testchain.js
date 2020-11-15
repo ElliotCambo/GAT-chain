@@ -12,7 +12,7 @@ var WebSocket = require('ws');
 var jsonParser = require('body-parser');
 
 var currentSessionsStatus = [];
-
+ let smashingCoin = new CryptoBlockchain();
 const app = express();
 // parse application/x-www-form-urlencoded
 app.use(jsonParser.urlencoded({ extended: false }))
@@ -66,7 +66,7 @@ app.post("/addNewBlock", (req, res) => {
 
   var seconds = new Date().getTime() / 1000;
 
-  let smashingCoin = new CryptoBlockchain();
+ 
 
   console.log("smashingCoin mining in progress....");
   smashingCoin.addNewBlock(
