@@ -268,7 +268,7 @@ class CryptoIdenityBlockchain {
   }
 }
 
- let GATidenityChain = new CryptoIdentityBlockchain();  
+ let GATidenityChain = new CryptoIdenityBlockchain();  
 
 
 
