@@ -1,0 +1,18 @@
+{
+	"uuid":"%UUID%",
+	"type":"%TYPE%",
+	"name":"%ORG_NAME%",
+	"parent_org_id":"%PARENT_ORG%",
+	"function:":"%FUNCTION%",
+	"description:":"%DESCRIPTION%",
+	"andministrators":[],
+	"share_templates":[],
+	"share_holders":[],
+	"affilliate_divisions":[],
+	"affilliates":[],
+	"division_account_ids":[],
+	"fillings":[],
+	"created":"%CREATED%",
+	"status":"%status%",
+	"division_locations":[]
+}

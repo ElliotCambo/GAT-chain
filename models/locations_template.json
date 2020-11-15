@@ -1,0 +1,11 @@
+{
+	"uuid":"%UUID%",
+	"type":"%TYPE%",
+	"created":"%CREATED%",
+	"from_reference_date":"%FROM_REF_DATE%",
+	"to_reference_date":"%TO_REF_DATE%",
+	"full_value":"%FULL_VALUE%",
+	"full_value_data_type":"%FULL_VALUE_DATA_TYPE%",
+	"full_value_unique_reference":"%FULL_VALUE_UNIQUE_REF%",
+	"location_bounds":[]
+}

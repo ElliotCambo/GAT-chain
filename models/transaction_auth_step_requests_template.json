@@ -1,0 +1,5 @@
+{
+	"uuid":"%UUID%",
+	"data":"%TCP_DATA%",
+	"origin_transaction_id":"%TRANS_ID%"
+}

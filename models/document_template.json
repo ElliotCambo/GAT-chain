@@ -1,0 +1,8 @@
+{
+	"uuid":"%UUID%",
+	"description":"%DESCRIPTION%",
+	"document_type":"%DOCUMENT_TYPE%",
+	"data":"%DATA%",
+	"created":"%CREATED%",
+	"versions":[]
+}

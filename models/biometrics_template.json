@@ -1,0 +1,7 @@
+{
+	"type":"%TYPE%",
+	"description":"%DESCRIPTION%",
+	"data":"%DATA%",
+	"data_type":"%DATA_TYPE%",
+	"created":"%DATE_CREATED%"
+}

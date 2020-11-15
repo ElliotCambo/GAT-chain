@@ -1,0 +1,17 @@
+{
+
+	"uuid":"%UUID%",
+	"owers_ids":[],
+	"owners_ids_hashes":[],
+	"transaction_in":[],
+	"transaction_out":[],
+	"transaction_hashes":[],
+	"chain_hash":"%CHAIN_HASH%",
+	"protected":{
+		"genasis_key":"%GENKEY%",
+		"regen_code":"%REGEN_CODE%"
+	},
+	"type":"%TYPE%",
+	"created":"%CREATED%"
+
+}

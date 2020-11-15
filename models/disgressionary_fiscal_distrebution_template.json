@@ -1,0 +1,8 @@
+{
+	"owners_id":"%IDENTITY_ID%",
+	"portion":"%PERC_OF_DESCRECIONARY_TO_ASSIGN%",
+	"org_id":"%ORG_ID%",
+	"contributions_transactions":[],
+	"location":"%LOCATION%",
+	"location_bounds":[]
+}

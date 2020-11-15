@@ -1,0 +1,28 @@
+{
+	"id":"%GUID%",
+	"type":"primary",
+	"created":"%DATE_CREATED%",
+	"first_name":"%FIRST_NAME%",
+	"middle_name":"%MIDDLE_NAME%",
+	"last_name":"%LAST_NAME%",
+	"dob":"%DOB%",
+	"picture":"%PICTURE_BASE64%",
+	"protected":{
+		"genasis_key":"%GENKEY%",
+		"recovery_code":"%REGEN_CODE%",
+		"identity_hash":"%IDENTITY_HASH%",
+		"biometrics":[],
+		"contact":[],
+		"assets":[],
+		"dividends_transactions":[],
+		"pension_transactions":[],
+		"locations":[],
+		"affilliated_org":[]
+	},
+	"gat_accounts":[],
+	"security_delegates_ids":[],
+	"additional_linked_ids":[],
+	"authenticated_ locations":[],
+	"disgressionary_fiscal_distrebution":[],
+	
+}

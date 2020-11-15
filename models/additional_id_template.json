@@ -1,0 +1,8 @@
+{
+	"uuid":"%UUID%",
+	"type":"%TYPE%",
+	"description":"%DESCRIPTION%",
+	"primary_identification_reference":"%PIMARY_REF%",
+	"image":"%IMAGE%",
+	"meta_data":{}
+}

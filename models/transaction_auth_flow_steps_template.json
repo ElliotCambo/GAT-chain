@@ -1,0 +1,6 @@
+{
+	"uuid":"%UUID%",
+	"mstimestamp":"%MILLISEC_TIMESTAMP%",
+	"action_step":"%ACTION_STEP%",
+	"action_request_headers":[]
+}

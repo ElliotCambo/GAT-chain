@@ -1,0 +1,10 @@
+{
+	"uuid":"%UUID%",
+	"name":"%FILING_NAME%",
+	"type":"%FILING_TYPE%",
+	"division_id":"%DIVISION_ID%",
+	"description":"%DESCRIPTION%",
+	"data_type":"%FILING_DATA_TYPE%",
+	"data":"%FILING_DATA%",
+	"created":"%CREATED%",
+}

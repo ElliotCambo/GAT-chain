@@ -1,0 +1,8 @@
+{
+	"uuid:":"%UUID%",
+	"owner_hash":"%HASH%",
+	"location_id":"%LOCATION_ID%",
+	"asset_type":"%TYPE%",
+	"docuuments":[],
+	"created":"%CREATED%"
+}

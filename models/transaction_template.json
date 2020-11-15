@@ -1,0 +1,26 @@
+{
+	"uuid":"%UUID%",
+	"to_account_id":"%TO_ACCOUNT_ID%",
+	"from_account_id":"%FROM_ACCOUNT_ID%",
+	"value":"%VALUE%",
+	"created":"%DATE_TIME%",
+	"authentication_hash":"%AUTH_HASH%",
+	"old_balance":"%OLD_BAL%",
+	"signed_new_balance":"%NEW_BAL%",
+	"location":{
+		"lat":"%LAT%",
+		"lng":"%LNG%",
+		"location_meta_data":"%LOCATION_META_DATA%"
+	},
+	"TO_fiscal_capture_subsystem_id":"%TO_FISCAL_SUBSYSTEM_ID%",
+	"TO_fiscal_contrebution_value":"%TO_CONTRIBUTION_VALUE%",
+	"TO_fiscal_contrebution_value_perc":"%TO_CONTRIBUTION_VALUE_PERC%",
+	"FROM_fiscal_capture_subsystem_id":"%FROM_FISCAL_SUBSYSTEM_ID%",
+	"FROM_fiscal_contrebution_value":"%FROM_CONTRIBUTION_VALUE%",
+	"FROM_fiscal_contrebution_value_perc":"%FROM_CONTRIBUTION_VALUE_PERC%",
+	"TO_auth_from_hash":"%TO_AUTH_FLOW_HASH",
+	"FROM_auth_from_hash":"%FROM_AUTH_FLOW_HASH",
+	"TO_auth_flow":[],
+	"FROM_auth_flow":[],
+	"status":"%STATUS%"
+}

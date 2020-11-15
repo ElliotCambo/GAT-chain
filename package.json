@@ -1,0 +1,22 @@
+{
+  "name": "gat-chain",
+  "version": "1.0.0",
+  "description": "",
+  "main": "testchain.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ElliotCambo/GAT-chain.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ElliotCambo/GAT-chain/issues"
+  },
+  "homepage": "https://github.com/ElliotCambo/GAT-chain#readme",
+  "dependencies": {
+    "crypto-js": "^4.0.0"
+  }
+}
