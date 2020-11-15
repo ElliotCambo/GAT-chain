@@ -59,6 +59,7 @@ setInterval(function () {
 
 app.get("/getTransactionChain", (req, res) => {
   // let smashingCoin = new CryptoBlockchain();
+  res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify({action:"updateChain",chain:JSON.stringify(GATTransacitonChain)}));
 });
 
@@ -89,6 +90,7 @@ app.post("/addNewTransaction", (req, res) => {
 
 app.get("/getIdentityChain", (req, res) => {
   // let smashingCoin = new CryptoBlockchain();
+  res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify({action:"updateChain",chain:JSON.stringify(GATidenityChain)}));
 });
 
@@ -105,7 +107,7 @@ app.post("/addNewIdenity", (req, res) => {
 
   wss.clients.forEach(client => {
       if (client != wss) {
-      
+          
           client.send(JSON.stringify({action:"updateChain",chain:JSON.stringify(GATidenityChain)}));
       } 
   });
@@ -135,13 +137,14 @@ app.get("/genkeys", (req, res) => {
     // Handle errors and use the generated key pair.
      console.log(publicKey);
      console.log(privateKey);
-
+     res.setHeader('Content-Type', 'application/json');
      res.send(JSON.stringify({pk:publicKey,sk:privateKey}));
   });
 });
 
 app.get("/getFiscalChain", (req, res) => {
   // let smashingCoin = new CryptoBlockchain();
+  res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify({action:"updateChain",chain:JSON.stringify(GATFiscalChain)}));
 });
 
