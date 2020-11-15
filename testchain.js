@@ -12,7 +12,7 @@ var WebSocket = require('ws');
 var jsonParser = require('body-parser');
 
 var currentSessionsStatus = [];
- let smashingCoin = new CryptoBlockchain();
+ 
 const app = express();
 // parse application/x-www-form-urlencoded
 app.use(jsonParser.urlencoded({ extended: false }))
@@ -58,6 +58,7 @@ setInterval(function () {
 
 
 app.get("/getChain", (req, res) => {
+  // let smashingCoin = new CryptoBlockchain();
   res.send(JSON.stringify({action:"updateChain",chain:JSON.stringify(smashingCoin)}));
 });
 
@@ -65,9 +66,7 @@ app.post("/addNewBlock", (req, res) => {
   console.log("New block being added");
 
   var seconds = new Date().getTime() / 1000;
-
- 
-
+  // let smashingCoin = new CryptoBlockchain();
   console.log("smashingCoin mining in progress....");
   smashingCoin.addNewBlock(
     new CryptoBlock(1, "01/06/2020", {
@@ -157,4 +156,4 @@ class CryptoBlockchain {
     return true;
   }
 }
-
+ let smashingCoin = new CryptoBlockchain();
