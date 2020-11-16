@@ -53,6 +53,17 @@ wss.on('connection', function (ws) {
     //connection is up, let's add a simple simple event
     ws.on('message', function (message) {
         //[...]
+
+        console.log(message);
+        var j = JSON.parse(message);
+
+         wss.clients.forEach(client => {
+              console.log(client.gatid);
+              console.log(j.toID);
+              if (client.gatid == j.toID) {
+                  client.send(JSON.stringify({action:"updateChain",chain:GATTransacitonChain}));
+              } 
+          });
     });
 });
 
@@ -112,7 +123,7 @@ app.get("/createCoins", (req, res) => {
 
 
           console.log("loaded  keys and template");
-
+          var TransactionGuuid = uuidv4();
           for(i = 0; i < numToMint;){
             var transactionTempCOPY = transactionTemp;
             var guuid = uuidv4();
@@ -159,6 +170,27 @@ app.get("/createCoins", (req, res) => {
               new CryptoBlock(cid+1, seconds, trans)
           );
 
+
+
+          var lastBlock=GATTransacitonDetailsChain.obtainLatestBlock();
+          var cid =  lastBlock.index;
+
+          var time = new Date();
+
+          var infoObj = { 
+                          trasactionId:TransactionGuuid,
+                          value:numToMint,
+                          currency:"gat",
+                          time:time.toString(),
+                          to_account_holder_id:id,
+                          from_account_holder_id:"GENERSIS"
+                        };
+
+          GATTransacitonDetailsChain.addNewBlock(
+              new CryptoTransacitonDetailsBlock(cid+1, seconds, infoObj)
+          );
+
+
           res.sendStatus(200);
          
     //   });
@@ -172,6 +204,14 @@ app.get("/getTransactionChain", (req, res) => {
   // let smashingCoin = new CryptoBlockchain();
   res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify({action:"updateChain",chain:GATTransacitonChain}));
+});
+
+
+
+app.get("/getTransactionInfoChain", (req, res) => {
+  // let smashingCoin = new CryptoBlockchain();
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify({action:"updateChain",chain:GATTransacitonDetailsChain}));
 });
 
 
@@ -624,3 +664,96 @@ class CryptoFiscalBlockchain {
 }
 
  let GATFiscalChain = new CryptoFiscalBlockchain();  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class CryptoTransacitonDetailsBlock {
+  constructor(index, timestamp, data, precedingHash = " ") {
+    this.index = index;
+    this.timestamp = timestamp;
+    this.data = data;
+    this.precedingHash = precedingHash;
+    this.hash = this.computeHash();
+    this.nonce = 0;
+  }
+
+  computeHash() {
+    return SHA256(
+      this.index +
+        this.precedingHash +
+        this.timestamp +
+        JSON.stringify(this.data) +
+        this.nonce
+    ).toString();
+  }
+
+  proofOfWork(difficulty) {
+    while (
+      this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("0")
+    ) {
+      this.nonce++;
+      this.hash = this.computeHash();
+    }
+  }
+}
+
+class CryptoTransacitonDetailsBlockchain {
+  constructor() {
+    this.blockchain = [this.startGenesisBlock()];
+    this.difficulty = 1;
+  }
+  startGenesisBlock() {
+    var today = new Date();
+    var date = today.getTime() / 1000
+    console.log("Initial Block in the IDENTITY Chain");
+    return new CryptoIdenityBlock(0, date, "Initial Block in the IDENTITY Chain", "0");
+  }
+
+  obtainLatestBlock() {
+    return this.blockchain[this.blockchain.length - 1];
+  }
+  addNewBlock(newBlock) {
+    newBlock.precedingHash = this.obtainLatestBlock().hash;
+    newBlock.hash = newBlock.computeHash();
+    newBlock.proofOfWork(this.difficulty);
+    this.blockchain.push(newBlock);
+  }
+
+  checkChainValidity() {
+    for (let i = 1; i < this.blockchain.length; i++) {
+      const currentBlock = this.blockchain[i];
+      const precedingBlock = this.blockchain[i - 1];
+
+      if (currentBlock.hash !== currentBlock.computeHash()) {
+        return false;
+      }
+      if (currentBlock.precedingHash !== precedingBlock.hash) return false;
+    }
+    return true;
+  }
+}
+
+ let GATTransacitonDetailsChain = new CryptoTransacitonDetailsBlockchain();  
+
+
+
