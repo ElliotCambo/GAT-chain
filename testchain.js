@@ -205,14 +205,18 @@ app.get("/getIdentityChain", (req, res) => {
 
 
 app.post("/addNewIdenity", (req, res) => {
-  console.log("New block being added");
+  console.log("New block being added :" + req.body.idenity);
 
   
   // let smashingCoin = new CryptoBlockchain();
   console.log("smashingCoin mining in progress....");
    var seconds = new Date().getTime() / 1000;
+
+  var lastBlock=GATidenityChain.obtainLatestBlock();
+  var cid = lastBlock.index;
+           
   GATidenityChain.addNewBlock(
-    new CryptoIdenityBlock(1, seconds, JSON.stringify(req.body.idenity))
+    new CryptoIdenityBlock(cid, seconds, JSON.stringify(req.body.idenity))
   );
 
   wss.clients.forEach(client => {
@@ -399,10 +403,6 @@ class CryptoIdenityBlockchain {
     return this.blockchain[this.blockchain.length - 1];
   }
   addNewBlock(newBlock) {
-    // get data from previous block
-
-    // hash
-    // var b = new CryptoIdenityBlock(0, date, "Initial Block in the IDENTITY Chain", "0");
     newBlock.precedingHash = this.obtainLatestBlock().hash;
     newBlock.hash = newBlock.computeHash();
     newBlock.proofOfWork(this.difficulty);
