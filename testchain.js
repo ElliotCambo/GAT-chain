@@ -222,7 +222,7 @@ app.post("/addNewIdenity", (req, res) => {
   console.log(idenity);
   
   console.log(account);
-   
+
   var lastBlock=GATidenityChain.obtainLatestBlock();
   var cid = lastBlock.index;
            
@@ -274,6 +274,13 @@ app.get("/genkeys", (req, res) => {
      res.send(JSON.stringify({pk:publicKey,sk:privateKey}));
   });
 });
+
+app.get("/getAccountsChain", (req, res) => {
+  // let smashingCoin = new CryptoBlockchain();
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify({action:"updateChain",chain:GATAccountsChain}));
+});
+
 
 app.get("/getFiscalChain", (req, res) => {
   // let smashingCoin = new CryptoBlockchain();
