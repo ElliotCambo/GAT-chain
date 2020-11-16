@@ -123,7 +123,7 @@ app.get("/createCoins", (req, res) => {
             transactionTempCOPY.value = 1;
             transactionTempCOPY.created  = seconds;
             transactionTempCOPY.authentication_hash = guuid;
-
+            transactionTempCOPY.owner_chain.push("GENERSIS");
             console.log(transactionTempCOPY);
 
             trans.push(transactionTempCOPY);
@@ -136,7 +136,7 @@ app.get("/createCoins", (req, res) => {
               new CryptoBlock(1, seconds, trans)
             );
 
-            res.sendStatus(200);
+            res.send(200);
          
     //   });
     // }); 
