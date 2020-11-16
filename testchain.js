@@ -216,7 +216,7 @@ app.post("/addNewIdenity", (req, res) => {
   var cid = lastBlock.index;
            
   GATidenityChain.addNewBlock(
-    new CryptoIdenityBlock(cid, seconds, JSON.stringify(req.body.idenity))
+    new CryptoIdenityBlock(cid, seconds, JSON.stringify(req.body))
   );
 
   wss.clients.forEach(client => {
