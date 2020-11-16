@@ -212,18 +212,21 @@ app.post("/addNewIdenity", (req, res) => {
   console.log("smashingCoin mining in progress....");
    var seconds = new Date().getTime() / 1000;
 
+  var idenity = req.body.idenity;
+  var account = req.body.account;
+   
   var lastBlock=GATidenityChain.obtainLatestBlock();
   var cid = lastBlock.index;
            
   GATidenityChain.addNewBlock(
-    new CryptoIdenityBlock(cid, seconds, req.body.idenity)
+    new CryptoIdenityBlock(cid+1, seconds, idenity)
   );
 
   var lastBlock=GATAccountsChain.obtainLatestBlock();
   var cid = lastBlock.index;
            
   GATAccountsChain.addNewBlock(
-    new CryptoAccountBlock(cid, seconds, req.body.account)
+    new CryptoAccountBlock(cid+1, seconds, account)
   );
 
   wss.clients.forEach(client => {
