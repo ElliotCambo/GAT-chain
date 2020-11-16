@@ -216,13 +216,23 @@ app.post("/addNewIdenity", (req, res) => {
   var cid = lastBlock.index;
            
   GATidenityChain.addNewBlock(
-    new CryptoIdenityBlock(cid, seconds, JSON.stringify(req.body))
+    new CryptoIdenityBlock(cid, seconds, JSON.stringify(req.body.idenity))
   );
+
+
+
+  var lastBlock=GATAccountsChain.obtainLatestBlock();
+  var cid = lastBlock.index;
+           
+  GATAccountsChain.addNewBlock(
+    new CryptoAccountBlock(cid, seconds, JSON.stringify(req.body.account))
+  );
+
+
 
   wss.clients.forEach(client => {
       if (client != wss) {
-          
-          client.send(JSON.stringify({action:"updateChain",chain:GATidenityChain}));
+          client.send(JSON.stringify({action:"updateChain",identityChain:GATidenityChain,accountChain:GATAccountsChain}));
       } 
   });
 
@@ -230,7 +240,7 @@ app.post("/addNewIdenity", (req, res) => {
 
   // res.sendStatus(200);
    res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify({action:"updateChain",chain:GATidenityChain}));
+  res.send(JSON.stringify({action:"updateChain",identityChain:GATidenityChain,accountChain:GATAccountsChain,transactionChain:GATTransacitonChain}));
 
 });
 
