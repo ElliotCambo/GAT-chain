@@ -70,14 +70,14 @@ app.get("/createCoins", (req, res) => {
   var sk;
   var trans = [];
   var numToMint = 50;
-  fs.readFile('/root/gat/GAT-chain/models/transaction_template.json', function(err, data) {
+  fs.readFile('/root/gat/GAT-chain/models/token.json', function(err, data) {
       transactionTemp = JSON.parse(data);
 
       fs.readFile('/root/gat/GAT-chain/certs/gat_id_rsa.pub', function(err, data) {
-      pk = JSON.parse(data);
+      pk = data;
        
         fs.readFile('/root/gat/GAT-chain/certs/gat_id_rsa', function(err, data) {
-        sk = JSON.parse(data);
+        sk = data;
 
           console.log("loaded  keys and template");
 
@@ -88,7 +88,7 @@ app.get("/createCoins", (req, res) => {
 
             const encryptedData = crypto.publicEncrypt(
               {
-                key: publicKey,
+                key: pk,
                 padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
                 oaepHash: "sha256",
               },
@@ -119,6 +119,7 @@ app.get("/createCoins", (req, res) => {
               new CryptoBlock(1, seconds, trans)
             );
 
+            res.sendStatus(200);
          
       });
     }); 
