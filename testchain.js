@@ -75,13 +75,13 @@ app.get("/createCoins", (req, res) => {
       transactionTemp = JSON.parse(data);
 
       fs.readFile('/root/gat/GAT-chain/certs/gat_id_rsa.pub', function(err, data) {
-      pk = data.toString('utf8');
+      pk = data;//.toString('utf8');
        
 
        console.log(pk);
 
         fs.readFile('/root/gat/GAT-chain/certs/gat_id_rsa', function(err, data) {
-        sk = data.toString('utf8');
+        sk = data;//.toString('utf8');
 
          console.log(sk);
           // const { pk, sk } = crypto.generateKeyPairSync("rsa", {
