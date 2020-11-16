@@ -56,6 +56,66 @@ setInterval(function () {
     });
 }, 10000);
 
+function uuidv4() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+
+app.get("/createCoins", (req, res) => {
+  // let smashingCoin = new CryptoBlockchain();
+  var transactionTemp;
+  var pk;
+  var sk;
+
+  var numToMint = 50;
+  fs.readFile('transaction_template.json', function(err, data) {
+      transactionTemp = JSON.parse(data);
+
+      fs.readFile('id_rsa.pub', function(err, data) {
+      pk = JSON.parse(data);
+       
+        fs.readFile('id_rsa', function(err, data) {
+        sk = JSON.parse(data);
+
+          console.log("loaded  keys and template");
+
+          for(i = 0; i< numToMint;){
+            var transactionTempCOPY = transactionTemp;
+            var guuid = uuidv4();
+            const data = guuid;
+
+            const encryptedData = crypto.publicEncrypt(
+              {
+                key: publicKey,
+                padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
+                oaepHash: "sha256",
+              },
+              // We convert the data string to a buffer using `Buffer.from`
+              Buffer.from(data)
+            )
+
+            // The encrypted data is in the form of bytes, so we print it in base64 format
+            // so that it's displayed in a more readable form
+            console.log("encypted data: ", encryptedData.toString("base64"))
+
+            var seconds = new Date().getTime() / 1000;
+            transactionTempCOPY.uuid = guuid;
+            transactionTempCOPY.owner = "GENERSIS";
+            transactionTempCOPY.value = 1;
+            transactionTempCOPY.created  = seconds;
+            transactionTempCOPY.authentication_hash = encryptedData.toString("base64");
+
+            i++;
+          }
+         
+      });
+    }); 
+  });
+
+});
+
 
 app.get("/getTransactionChain", (req, res) => {
   // let smashingCoin = new CryptoBlockchain();
