@@ -34,7 +34,7 @@ const wss = new WebSocket.Server({ server });
 wss.on('connection', function (ws,req) {
     //send immediatly a feedback to the incoming connection    
 
-    var current_url = new URL(req.url);
+    var current_url = new URL("https://bs.com"+req.url);
 
     // get access to URLSearchParams object
     var search_params = current_url.searchParams;
