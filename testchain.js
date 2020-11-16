@@ -177,13 +177,17 @@ app.post("/addNewTransaction", (req, res) => {
   // let smashingCoin = new CryptoBlockchain();
   console.log("smashingCoin mining in progress....");
   var seconds = new Date().getTime() / 1000;
+
+  var lastBlock=GATTransacitonChain.obtainLatestBlock();
+  var cid =  lastBlock.index;
+
   GATTransacitonChain.addNewBlock(
-    new CryptoBlock(1, seconds, req.body.transaction)
+    new CryptoBlock(cid, seconds, req.body.transaction)
   );
+
 
   wss.clients.forEach(client => {
       if (client != wss) {
-      
           client.send(JSON.stringify({action:"updateChain",chain:GATTransacitonChain}));
       } 
   });
@@ -205,7 +209,7 @@ app.get("/getIdentityChain", (req, res) => {
 
 
 app.post("/addNewIdenity", (req, res) => {
-  console.log("New block being added :" + JSON.stringify(req.body));
+  // console.log("New block being added :" + JSON.stringify(req.body));
 
   
   // let smashingCoin = new CryptoBlockchain();
@@ -214,6 +218,10 @@ app.post("/addNewIdenity", (req, res) => {
 
   var idenity = req.body.idenity;
   var account = req.body.account;
+   
+  console.log(idenity);
+  
+  console.log(account);
    
   var lastBlock=GATidenityChain.obtainLatestBlock();
   var cid = lastBlock.index;
@@ -575,11 +583,6 @@ class CryptoFiscalBlockchain {
     return this.blockchain[this.blockchain.length - 1];
   }
   addNewBlock(newBlock) {
-    // get gata from last block 
-
-    // hash
-    
-
     newBlock.precedingHash = this.obtainLatestBlock().hash;
     newBlock.hash = newBlock.computeHash();
     newBlock.proofOfWork(this.difficulty);
