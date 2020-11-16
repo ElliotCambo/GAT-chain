@@ -30,9 +30,11 @@ const server = https.createServer(credentials, app);
 //initialize the WebSocket server instance
 const wss = new WebSocket.Server({ server });
 
-wss.on('connection', function (ws) {
+wss.on('connection', function (ws,req) {
     //send immediatly a feedback to the incoming connection    
-    console.log(JSON.stringify(ws));
+    const parameters = url.parse(req.url, true);
+    ws.gatid = parameters.query.gatid;
+    console.log("UUID="+ws.gatid);
     ws.send('Hi there, GAT WebSocket server');
     
 });
