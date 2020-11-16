@@ -32,7 +32,7 @@ const wss = new WebSocket.Server({ server });
 
 wss.on('connection', function (ws) {
     //send immediatly a feedback to the incoming connection    
-    console.log(JSON.stringify(wss._server._connections));
+    console.log(JSON.stringify(ws));
     ws.send('Hi there, GAT WebSocket server');
     
 });
