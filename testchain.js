@@ -68,7 +68,7 @@ app.get("/createCoins", (req, res) => {
   var transactionTemp;
   var pk;
   var sk;
-
+  var trans = [];
   var numToMint = 50;
   fs.readFile('transaction_template.json', function(err, data) {
       transactionTemp = JSON.parse(data);
@@ -109,13 +109,16 @@ app.get("/createCoins", (req, res) => {
 
             console.log(transactionTempCOPY);
 
-            var seconds = new Date().getTime() / 1000;
-            GATTransacitonChain.addNewBlock(
-              new CryptoBlock(1, seconds, transactionTempCOPY)
-            );
+            trans.push(transactionTempCOPY);
 
             i++;
           }
+
+          var seconds = new Date().getTime() / 1000;
+            GATTransacitonChain.addNewBlock(
+              new CryptoBlock(1, seconds, trans)
+            );
+
          
       });
     }); 
@@ -360,6 +363,10 @@ class CryptoIdenityBlockchain {
     return this.blockchain[this.blockchain.length - 1];
   }
   addNewBlock(newBlock) {
+    // get data from previous block
+
+    // hash
+    // var b = new CryptoIdenityBlock(0, date, "Initial Block in the IDENTITY Chain", "0");
     newBlock.precedingHash = this.obtainLatestBlock().hash;
     newBlock.hash = newBlock.computeHash();
     newBlock.proofOfWork(this.difficulty);
