@@ -107,6 +107,13 @@ app.get("/createCoins", (req, res) => {
             transactionTempCOPY.created  = seconds;
             transactionTempCOPY.authentication_hash = encryptedData.toString("base64");
 
+            console.log(transactionTempCOPY);
+
+            var seconds = new Date().getTime() / 1000;
+            GATTransacitonChain.addNewBlock(
+              new CryptoBlock(1, seconds, transactionTempCOPY)
+            );
+
             i++;
           }
          
@@ -127,11 +134,12 @@ app.get("/getTransactionChain", (req, res) => {
 app.post("/addNewTransaction", (req, res) => {
   console.log("New block being added");
 
-  var seconds = new Date().getTime() / 1000;
+  
   // let smashingCoin = new CryptoBlockchain();
   console.log("smashingCoin mining in progress....");
+  var seconds = new Date().getTime() / 1000;
   GATTransacitonChain.addNewBlock(
-    new CryptoBlock(1, "01/06/2020", req.body.transaction)
+    new CryptoBlock(1, seconds, req.body.transaction)
   );
 
   wss.clients.forEach(client => {
@@ -160,11 +168,12 @@ app.get("/getIdentityChain", (req, res) => {
 app.post("/addNewIdenity", (req, res) => {
   console.log("New block being added");
 
-  var seconds = new Date().getTime() / 1000;
+  
   // let smashingCoin = new CryptoBlockchain();
   console.log("smashingCoin mining in progress....");
+   var seconds = new Date().getTime() / 1000;
   GATidenityChain.addNewBlock(
-    new CryptoIdenityBlock(1, "01/06/2020", req.body.idenity)
+    new CryptoIdenityBlock(1, seconds, req.body.idenity)
   );
 
   wss.clients.forEach(client => {
@@ -253,15 +262,6 @@ class CryptoBlock {
     }
   }
 }
-
-
-
-
-
-
-
-
-
 
 
 class CryptoBlockchain {
