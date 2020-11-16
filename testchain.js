@@ -98,7 +98,7 @@ app.get("/createCoins", (req, res) => {
 
           console.log("loaded  keys and template");
 
-          for(i = 0; i< numToMint;){
+          for(i = 0; i < numToMint;){
             var transactionTempCOPY = transactionTemp;
             var guuid = uuidv4();
             // const data = guuid;
@@ -123,20 +123,21 @@ app.get("/createCoins", (req, res) => {
             transactionTempCOPY.value = 1;
             transactionTempCOPY.created  = seconds;
             transactionTempCOPY.authentication_hash = guuid;
-            transactionTempCOPY.owner_chain.push("GENERSIS");
-            console.log(transactionTempCOPY);
-
+            transactionTempCOPY.owner_chain = ["GENERSIS"];
+            
             trans.push(transactionTempCOPY);
 
             i++;
           }
 
-          var seconds = new Date().getTime() / 1000;
-            GATTransacitonChain.addNewBlock(
-              new CryptoBlock(1, seconds, trans)
-            );
+          console.log(trans);
 
-            res.send(200);
+          var seconds = new Date().getTime() / 1000;
+          GATTransacitonChain.addNewBlock(
+              new CryptoBlock(1, seconds, trans)
+          );
+
+            res.sendStatus(200);
          
     //   });
     // }); 
@@ -288,7 +289,7 @@ class CryptoBlock {
 class CryptoBlockchain {
   constructor() {
     this.blockchain = [this.startGenesisBlock()];
-    this.difficulty = 4;
+    this.difficulty = 1;
   }
   startGenesisBlock() {
     var today = new Date();
@@ -368,7 +369,7 @@ class CryptoIdenityBlock {
 class CryptoIdenityBlockchain {
   constructor() {
     this.blockchain = [this.startGenesisBlock()];
-    this.difficulty = 4;
+    this.difficulty = 1;
   }
   startGenesisBlock() {
     var today = new Date();
@@ -451,7 +452,7 @@ class CryptoAccountBlock {
 class CryptoAccountBlockchain {
   constructor() {
     this.blockchain = [this.startGenesisBlock()];
-    this.difficulty = 4;
+    this.difficulty = 1;
   }
   startGenesisBlock() {
     var today = new Date();
@@ -535,7 +536,7 @@ class CryptoFiscalBlock {
 class CryptoFiscalBlockchain {
   constructor() {
     this.blockchain = [this.startGenesisBlock()];
-    this.difficulty = 4;
+    this.difficulty = 1;
   }
   startGenesisBlock() {
     var today = new Date();
