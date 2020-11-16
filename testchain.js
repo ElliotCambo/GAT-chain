@@ -281,7 +281,7 @@ class CryptoBlockchain {
   }
   addNewBlock(newBlock) {
     newBlock.precedingHash = this.obtainLatestBlock().hash;
-    //newBlock.hash = newBlock.computeHash();
+    newBlock.hash = newBlock.computeHash();
     newBlock.proofOfWork(this.difficulty);
     this.blockchain.push(newBlock);
   }
@@ -361,7 +361,7 @@ class CryptoIdenityBlockchain {
   }
   addNewBlock(newBlock) {
     newBlock.precedingHash = this.obtainLatestBlock().hash;
-    //newBlock.hash = newBlock.computeHash();
+    newBlock.hash = newBlock.computeHash();
     newBlock.proofOfWork(this.difficulty);
     this.blockchain.push(newBlock);
   }
@@ -440,7 +440,7 @@ class CryptoAccountBlockchain {
   }
   addNewBlock(newBlock) {
     newBlock.precedingHash = this.obtainLatestBlock().hash;
-    //newBlock.hash = newBlock.computeHash();
+    newBlock.hash = newBlock.computeHash();
     newBlock.proofOfWork(this.difficulty);
     this.blockchain.push(newBlock);
   }
@@ -523,8 +523,13 @@ class CryptoFiscalBlockchain {
     return this.blockchain[this.blockchain.length - 1];
   }
   addNewBlock(newBlock) {
+    // get gata from last block 
+
+    // hash
+    
+
     newBlock.precedingHash = this.obtainLatestBlock().hash;
-    //newBlock.hash = newBlock.computeHash();
+    newBlock.hash = newBlock.computeHash();
     newBlock.proofOfWork(this.difficulty);
     this.blockchain.push(newBlock);
   }
