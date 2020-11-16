@@ -70,13 +70,13 @@ app.get("/createCoins", (req, res) => {
   var sk;
   var trans = [];
   var numToMint = 50;
-  fs.readFile('transaction_template.json', function(err, data) {
+  fs.readFile('/root/gat/GAT-chain/models/transaction_template.json', function(err, data) {
       transactionTemp = JSON.parse(data);
 
-      fs.readFile('id_rsa.pub', function(err, data) {
+      fs.readFile('/root/gat/GAT-chain/certs/gat_id_rsa.pub', function(err, data) {
       pk = JSON.parse(data);
        
-        fs.readFile('id_rsa', function(err, data) {
+        fs.readFile('/root/gat/GAT-chain/certs/gat_id_rsa', function(err, data) {
         sk = JSON.parse(data);
 
           console.log("loaded  keys and template");
