@@ -119,12 +119,14 @@ app.get("/createCoins", (req, res) => {
 
             var seconds = new Date().getTime() / 1000;
             transactionTempCOPY.uuid = guuid;
-            transactionTempCOPY.owner = "ELLIOT";
-            transactionTempCOPY.from = "GENERSIS";
-            transactionTempCOPY.value = "GAT";
+            transactionTempCOPY.to_account_holder_id = "ELLIOT";
+            transactionTempCOPY.from_account_holder_id = "GENERSIS";
+            transactionTempCOPY.transaction_currency_symbol = "GAT";
+            transactionTempCOPY.transaction_currency_symbol = "gat";
+            transactionTempCOPY.value = 1;
             transactionTempCOPY.created  = seconds;
-            transactionTempCOPY.authentication_hash = guuid;
             transactionTempCOPY.owner_chain = ["GENERSIS"];
+
             
             trans.push(transactionTempCOPY);
 
@@ -196,7 +198,7 @@ app.post("/addNewIdenity", (req, res) => {
   console.log("smashingCoin mining in progress....");
    var seconds = new Date().getTime() / 1000;
   GATidenityChain.addNewBlock(
-    new CryptoIdenityBlock(1, seconds, req.body.idenity)
+    new CryptoIdenityBlock(1, seconds, JSON.stringify(req.body.idenity))
   );
 
   wss.clients.forEach(client => {
