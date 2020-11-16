@@ -26,8 +26,6 @@ app.use("/public", express.static("/root/vvid/public"));
 // const server = http.createServer(app);
 const server = https.createServer(credentials, app);
 
-
-
 //initialize the WebSocket server instance
 const wss = new WebSocket.Server({ server });
 
@@ -76,6 +74,13 @@ function uuidv4() {
 
 app.get("/createCoins", (req, res) => {
   // let smashingCoin = new CryptoBlockchain();
+
+  var current_url = new URL("https://bs.com"+req.url);
+  // get access to URLSearchParams object
+  var search_params = current_url.searchParams;
+  // get url parameters
+  var id = search_params.get('gatid');
+
   var transactionTemp;
   var pk;
   var sk;
@@ -129,7 +134,7 @@ app.get("/createCoins", (req, res) => {
 
             var seconds = new Date().getTime() / 1000;
             transactionTempCOPY.uuid = guuid;
-            transactionTempCOPY.to_account_holder_id = "ELLIOT";
+            transactionTempCOPY.to_account_holder_id = id;
             transactionTempCOPY.from_account_holder_id = "GENERSIS";
             transactionTempCOPY.transaction_currency_symbol = "GAT";
             transactionTempCOPY.transaction_currency_symbol = "gat";
