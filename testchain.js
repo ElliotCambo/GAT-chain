@@ -119,7 +119,8 @@ app.get("/createCoins", (req, res) => {
 
             var seconds = new Date().getTime() / 1000;
             transactionTempCOPY.uuid = guuid;
-            transactionTempCOPY.owner = "GENERSIS";
+            transactionTempCOPY.owner = "ELLIOT";
+            transactionTempCOPY.from = "GENERSIS";
             transactionTempCOPY.value = 1;
             transactionTempCOPY.created  = seconds;
             transactionTempCOPY.authentication_hash = guuid;
