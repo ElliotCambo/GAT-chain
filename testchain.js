@@ -74,11 +74,16 @@ app.get("/createCoins", (req, res) => {
   fs.readFile('/root/gat/GAT-chain/models/token.json', function(err, data) {
       transactionTemp = JSON.parse(data);
 
-      fs.readFile('/root/gat/GAT-chain/certs/gat_id_rsa.pub', function(err, data) {
-      pk = data;
+      // fs.readFile('/root/gat/GAT-chain/certs/gat_id_rsa.pub', function(err, data) {
+      // pk = data;
        
-        fs.readFile('/root/gat/GAT-chain/certs/gat_id_rsa', function(err, data) {
-        sk = data;
+      //   fs.readFile('/root/gat/GAT-chain/certs/gat_id_rsa', function(err, data) {
+      //   sk = data;
+
+          const { pk, sk } = crypto.generateKeyPairSync("rsa", {
+            // The standard secure default length for RSA keys is 2048 bits
+            modulusLength: 2048,
+          })
 
           console.log("loaded  keys and template");
 
@@ -122,8 +127,8 @@ app.get("/createCoins", (req, res) => {
 
             res.sendStatus(200);
          
-      });
-    }); 
+    //   });
+    // }); 
   });
 
 });
