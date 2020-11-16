@@ -99,7 +99,7 @@ app.get("/createCoins", (req, res) => {
             const encryptedData = crypto.publicEncrypt(
               {
                 key: pk,
-                padding: crypto.constants.RSA_NO_PADDING,
+                padding: crypto.constants.RSA_SSLV23_PADDING,
                 oaepHash: "sha256",
               },
               // We convert the data string to a buffer using `Buffer.from`
