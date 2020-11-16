@@ -122,7 +122,7 @@ app.get("/createCoins", (req, res) => {
             transactionTempCOPY.owner = "GENERSIS";
             transactionTempCOPY.value = 1;
             transactionTempCOPY.created  = seconds;
-            transactionTempCOPY.authentication_hash = encryptedData.toString("base64");
+            transactionTempCOPY.authentication_hash = guuid;
 
             console.log(transactionTempCOPY);
 
