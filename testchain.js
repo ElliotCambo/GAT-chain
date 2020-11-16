@@ -84,31 +84,38 @@ app.get("/createCoins", (req, res) => {
       //   sk = data;//.toString('utf8');
 
       //    console.log(sk);
-          const { pk, sk } = crypto.generateKeyPairSync("rsa", {
-            // The standard secure default length for RSA keys is 2048 bits
-            modulusLength: 2048,
-          })
+          // const { pk, sk } = crypto.generateKeyPairSync("rsa", {
+          //   // The standard secure default length for RSA keys is 2048 bits
+          //   modulusLength: 2048,
+          // })
+
+          // const { privateKey, publicKey } = crypto.generateKeyPairSync('rsa', {
+          //           namedCurve: 'sect239k1',
+          //           publicKeyEncoding:  { type: 'spki', format: 'der' },
+          //           privateKeyEncoding: { type: 'pkcs8', format: 'der' }
+          //         });
+
 
           console.log("loaded  keys and template");
 
           for(i = 0; i< numToMint;){
             var transactionTempCOPY = transactionTemp;
             var guuid = uuidv4();
-            const data = guuid;
+            // const data = guuid;
 
-            const encryptedData = crypto.publicEncrypt(
-              {
-                key: pk,
-                padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
-                oaepHash: "sha256",
-              },
-              // We convert the data string to a buffer using `Buffer.from`
-              Buffer.from(data)
-            )
+            // const encryptedData = crypto.publicEncrypt(
+            //   {
+            //     key: pk,
+            //     padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
+            //     oaepHash: "sha256",
+            //   },
+            //   // We convert the data string to a buffer using `Buffer.from`
+            //   Buffer.from(data)
+            // )
 
             // The encrypted data is in the form of bytes, so we print it in base64 format
             // so that it's displayed in a more readable form
-            console.log("encypted data: ", encryptedData.toString("base64"))
+            // console.log("encypted data: ", encryptedData.toString("base64"))
 
             var seconds = new Date().getTime() / 1000;
             transactionTempCOPY.uuid = guuid;
