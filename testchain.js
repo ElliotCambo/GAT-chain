@@ -146,11 +146,15 @@ app.get("/createCoins", (req, res) => {
           console.log(trans);
 
           var seconds = new Date().getTime() / 1000;
+
+          var lastBlock=GATTransacitonChain.obtainLatestBlock();
+          var cid =  lastBlock.index;
+
           GATTransacitonChain.addNewBlock(
-              new CryptoBlock(1, seconds, trans)
+              new CryptoBlock(cid+1, seconds, trans)
           );
 
-            res.sendStatus(200);
+          res.sendStatus(200);
          
     //   });
     // }); 
