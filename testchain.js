@@ -460,6 +460,14 @@ class CryptoIdenityBlockchain {
 
 
 
+
+
+
+
+
+
+
+
 class CryptoAccountBlock {
   constructor(index, timestamp, data, precedingHash = " ") {
     this.index = index;
@@ -611,14 +619,3 @@ class CryptoFiscalBlockchain {
 }
 
  let GATFiscalChain = new CryptoFiscalBlockchain();  
-
-
-
-
-
-
-
-
-
-
-
