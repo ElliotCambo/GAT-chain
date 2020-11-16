@@ -84,10 +84,10 @@ app.get("/createCoins", (req, res) => {
         sk = data;//.toString('utf8');
 
          console.log(sk);
-          // const { pk, sk } = crypto.generateKeyPairSync("rsa", {
-          //   // The standard secure default length for RSA keys is 2048 bits
-          //   modulusLength: 2048,
-          // })
+          const { pk, sk } = crypto.generateKeyPairSync("rsa", {
+            // The standard secure default length for RSA keys is 2048 bits
+            modulusLength: 2048,
+          })
 
           console.log("loaded  keys and template");
 
@@ -99,8 +99,8 @@ app.get("/createCoins", (req, res) => {
             const encryptedData = crypto.publicEncrypt(
               {
                 key: pk,
-                padding: crypto.constants.RSA_NO_PADDING,
-                oaepHash: "sha1",
+                padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
+                oaepHash: "sha256",
               },
               // We convert the data string to a buffer using `Buffer.from`
               Buffer.from(data)
