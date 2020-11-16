@@ -205,7 +205,7 @@ app.get("/getIdentityChain", (req, res) => {
 
 
 app.post("/addNewIdenity", (req, res) => {
-  console.log("New block being added :" + req.body);
+  console.log("New block being added :" + JSON.stringify(req.body));
 
   
   // let smashingCoin = new CryptoBlockchain();
