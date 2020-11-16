@@ -1,4 +1,5 @@
 const SHA256 = require("crypto-js/sha256");
+const crypto = require("crypto")
 var express = require('express');
 var https = require('https');
 var fs = require('fs');
