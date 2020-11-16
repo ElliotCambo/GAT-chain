@@ -3,6 +3,7 @@ const crypto = require("crypto")
 var express = require('express');
 var https = require('https');
 var fs = require('fs');
+const url = require('url');
 
 var privateKey  = fs.readFileSync('/root/vvid/certs/vvid_world.key', 'utf8');
 var certificate = fs.readFileSync('/root/vvid/certs/bundle.crt', 'utf8');
@@ -32,8 +33,15 @@ const wss = new WebSocket.Server({ server });
 
 wss.on('connection', function (ws,req) {
     //send immediatly a feedback to the incoming connection    
-    const parameters = url.parse(req.url, true);
-    ws.gatid = parameters.query.gatid;
+
+    var current_url = new URL(req.url);
+
+    // get access to URLSearchParams object
+    var search_params = current_url.searchParams;
+
+    // get url parameters
+    var id = search_params.get('gatid');
+    ws.gatid = id;
     console.log("UUID="+ws.gatid);
     ws.send('Hi there, GAT WebSocket server');
     
