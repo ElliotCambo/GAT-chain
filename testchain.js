@@ -216,14 +216,14 @@ app.post("/addNewIdenity", (req, res) => {
   var cid = lastBlock.index;
            
   GATidenityChain.addNewBlock(
-    new CryptoIdenityBlock(cid, seconds, JSON.stringify(req.body.idenity))
+    new CryptoIdenityBlock(cid, seconds, req.body.idenity)
   );
 
   var lastBlock=GATAccountsChain.obtainLatestBlock();
   var cid = lastBlock.index;
            
   GATAccountsChain.addNewBlock(
-    new CryptoAccountBlock(cid, seconds, JSON.stringify(req.body.account))
+    new CryptoAccountBlock(cid, seconds, req.body.account)
   );
 
   wss.clients.forEach(client => {
