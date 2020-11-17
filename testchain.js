@@ -306,7 +306,7 @@ app.post("/addNewTransaction", (req, res) => {
           } 
       });
 
-      console.log(JSON.stringify(GATTransacitonChain));
+      console.log(JSON.stringify(trans));
       // res.sendStatus(200);
 
       res.setHeader('Content-Type', 'application/json');
