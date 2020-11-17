@@ -223,11 +223,15 @@ app.post("/addNewTransaction", (req, res) => {
   var toAccountId = req.body.toAccountId;
   var fromAccountId = req.body.fromAccountId;
   var currency = req.body.currency;
+
+
+  var transactionTemp;
+  var trans = [];
   // let smashingCoin = new CryptoBlockchain();
   console.log("smashingCoin mining in progress....");
   var seconds = new Date().getTime() / 1000;
   fs.readFile('/root/gat/GAT-chain/models/token.json', function(err, data) {
-      var transactionTemp = JSON.parse(data);
+      transactionTemp = JSON.parse(data);
 
       var TransactionGuuid = uuidv4();
 
