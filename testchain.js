@@ -59,9 +59,9 @@ wss.on('connection', function (ws) {
 
          wss.clients.forEach(client => {
               console.log(client.gatid);
-              console.log(j.toID);
-              if (client.gatid == j.toID) {
-                  client.send(JSON.stringify({action:"updateChain",chain:GATTransacitonChain}));
+              console.log(j.gatid);
+              if (client.gatid == j.gatid) {
+                  client.send(message);
               } 
           });
     });
@@ -218,30 +218,98 @@ app.get("/getTransactionInfoChain", (req, res) => {
 app.post("/addNewTransaction", (req, res) => {
   console.log("New block being added");
 
-  
+  var coins = req.body.coins;
+  var value = req.body.value;
+  var toAccountId = req.body.toAccountId;
+  var fromAccountId = req.body.fromAccountId;
+  var currency = req.body.currency;
   // let smashingCoin = new CryptoBlockchain();
   console.log("smashingCoin mining in progress....");
   var seconds = new Date().getTime() / 1000;
+  fs.readFile('/root/gat/GAT-chain/models/token.json', function(err, data) {
+      var transactionTemp = JSON.parse(data);
 
-  var lastBlock=GATTransacitonChain.obtainLatestBlock();
-  var cid =  lastBlock.index;
+      var TransactionGuuid = uuidv4();
 
-  GATTransacitonChain.addNewBlock(
-    new CryptoBlock(cid, seconds, req.body.transaction)
-  );
+      for(i = 0; i < coins;){
+        var transactionTempCOPY = transactionTemp;
+        var guuid = uuidv4();
+        // const data = guuid;
+
+        // const encryptedData = crypto.publicEncrypt(
+        //   {
+        //     key: pk,
+        //     padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
+        //     oaepHash: "sha256",
+        //   },
+        //   // We convert the data string to a buffer using `Buffer.from`
+        //   Buffer.from(data)
+        // )
+
+        // The encrypted data is in the form of bytes, so we print it in base64 format
+        // so that it's displayed in a more readable form
+        // console.log("encypted data: ", encryptedData.toString("base64"))
+
+        var seconds = new Date().getTime() / 1000;
+        transactionTempCOPY.uuid = guuid;
+        transactionTempCOPY.to_account_holder_id = toAccountId;
+        transactionTempCOPY.from_account_holder_id = fromAccountId;
+        transactionTempCOPY.transaction_currency_symbol = currency;
+        transactionTempCOPY.transaction_currency_symbol = currency;
+        transactionTempCOPY.value = 1;
+        transactionTempCOPY.created  = seconds;
+        transactionTempCOPY.owner_chain = coins[i].owner_chain.push(toAccountId);
+
+        
+        trans.push(transactionTempCOPY);
+
+        i++;
+      }
+
+      console.log(trans);
+
+      var seconds = new Date().getTime() / 1000;
+
+      var lastBlock=GATTransacitonChain.obtainLatestBlock();
+      var cid =  lastBlock.index;
+
+      GATTransacitonChain.addNewBlock(
+          new CryptoBlock(cid+1, seconds, trans)
+      );
 
 
-  wss.clients.forEach(client => {
-      if (client != wss) {
-          client.send(JSON.stringify({action:"updateChain",chain:GATTransacitonChain}));
-      } 
+      var lastBlock=GATTransacitonDetailsChain.obtainLatestBlock();
+      var cid =  lastBlock.index;
+
+      var time = new Date();
+
+      var infoObj = { 
+                      trasactionId:TransactionGuuid,
+                      value:coins.length,
+                      currency:currency,
+                      time:time.toString(),
+                      to_account_holder_id:toAccountId,
+                      from_account_holder_id:fromAccountId
+                    };
+
+      GATTransacitonDetailsChain.addNewBlock(
+          new CryptoTransacitonDetailsBlock(cid+1, seconds, infoObj)
+      );
+
+      wss.clients.forEach(client => {
+          if (client.gatid == toAccountId) {
+              client.send(JSON.stringify({action:"updateChain",chain:GATTransacitonChain}));
+          } 
+      });
+
+      console.log(JSON.stringify(GATTransacitonChain));
+      // res.sendStatus(200);
+
+      res.setHeader('Content-Type', 'application/json');
+      res.send(JSON.stringify({action:"updateChain",chain:GATTransacitonChain}));
+
   });
-
-  console.log(JSON.stringify(GATTransacitonChain));
-  // res.sendStatus(200);
-
-  res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify({action:"updateChain",chain:GATTransacitonChain}));
+  
 });
 
 
