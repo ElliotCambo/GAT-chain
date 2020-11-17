@@ -235,7 +235,7 @@ app.post("/addNewTransaction", (req, res) => {
 
       var TransactionGuuid = uuidv4();
 
-      for(i = 0; i < coins;){
+      for(i = 0; i < coins.length;){
         var transactionTempCOPY = transactionTemp;
         var guuid = uuidv4();
         // const data = guuid;
