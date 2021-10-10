@@ -2,6 +2,7 @@ const SHA256 = require("crypto-js/sha256");
 const crypto = require("crypto")
 var express = require('express');
 var https = require('https');
+var http = require('http');
 var fs = require('fs');
 const url = require('url');
 
@@ -23,8 +24,8 @@ app.use(jsonParser.urlencoded({ extended: false }))
 app.use(jsonParser.json())
 app.use("/public", express.static("/root/vvid/public"));
 //initialize a simple http server
-// const server = http.createServer(app);
-const server = https.createServer(credentials, app);
+const server = http.createServer(app);
+// const server = https.createServer(credentials, app);
 
 //initialize the WebSocket server instance
 const wss = new WebSocket.Server({ server });
