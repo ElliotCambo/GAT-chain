@@ -230,7 +230,7 @@ app.post("/addNewTransaction", (req, res) => {
   // let smashingCoin = new CryptoBlockchain();
   console.log("smashingCoin mining in progress....");
   var seconds = new Date().getTime() / 1000;
-  fs.readFile('/root/gat/GAT-chain/models/token.json', function(err, data) {
+  fs.readFile('/root/gat/gat/GAT-chain/models/token.json', function(err, data) {
       transactionTemp = JSON.parse(data);
 
       var TransactionGuuid = uuidv4();
@@ -324,6 +324,16 @@ app.get("/getIdentityChain", (req, res) => {
   res.send(JSON.stringify({action:"updateChain",chain:GATidenityChain}));
 });
 
+app.get("/.well-known/pki-validation/AB220C4E12766858646D251DF78D5BBD.txt", (req, res) => {
+  // let smashingCoin = new CryptoBlockchain();
+  // res.setHeader('Content-Type', 'application/json');
+
+
+
+  res.send("CE657A8D0302B74CE88FBEB9804406426D850E714EF03C40F965833F4894BEEA comodoca.com 6162ce6d3f22c");
+});
+
+AB220C4E12766858646D251DF78D5BBD.txt
 
 app.post("/addNewIdenity", (req, res) => {
   // console.log("New block being added :" + JSON.stringify(req.body));
