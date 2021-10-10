@@ -408,7 +408,7 @@ app.get("/getFiscalChain", (req, res) => {
   res.send(JSON.stringify({action:"updateChain",chain:GATFiscalChain}));
 });
 
-server.listen(process.env.PORT || 4433, () => {
+server.listen(process.env.PORT || 80, () => {
     console.log(`Server started on port ${server.address().port} :)`);
 });
 
