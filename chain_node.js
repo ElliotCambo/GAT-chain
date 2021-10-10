@@ -5,8 +5,8 @@ var https = require('https');
 var fs = require('fs');
 const url = require('url');
 
-var privateKey  = fs.readFileSync('/root/vvid/certs/vvid_world.key', 'utf8');
-var certificate = fs.readFileSync('/root/vvid/certs/bundle.crt', 'utf8');
+var privateKey  = fs.readFileSync('/root/vvid/vvid/certs/vvid_world.key', 'utf8');
+var certificate = fs.readFileSync('/root/vvid/vvid/certs/bundle.crt', 'utf8');
 
 var credentials = {key: privateKey, cert: certificate};
 
