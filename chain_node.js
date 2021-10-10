@@ -325,15 +325,8 @@ app.get("/getIdentityChain", (req, res) => {
 });
 
 app.get("/.well-known/pki-validation/AB220C4E12766858646D251DF78D5BBD.txt", (req, res) => {
-  // let smashingCoin = new CryptoBlockchain();
-  // res.setHeader('Content-Type', 'application/json');
-
-
-
   res.send("CE657A8D0302B74CE88FBEB9804406426D850E714EF03C40F965833F4894BEEA comodoca.com 6162ce6d3f22c");
 });
-
-AB220C4E12766858646D251DF78D5BBD.txt
 
 app.post("/addNewIdenity", (req, res) => {
   // console.log("New block being added :" + JSON.stringify(req.body));
