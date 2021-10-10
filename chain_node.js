@@ -95,7 +95,7 @@ app.get("/createCoins", (req, res) => {
   var pk;
   var sk;
   var trans = [];
-  var numToMint = 50;
+  var numToMint = 5000000;
   fs.readFile('/root/gat/GAT-chain/models/token.json', function(err, data) {
       transactionTemp = JSON.parse(data);
 
