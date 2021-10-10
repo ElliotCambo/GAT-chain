@@ -2,12 +2,11 @@ const SHA256 = require("crypto-js/sha256");
 const crypto = require("crypto")
 var express = require('express');
 var https = require('https');
-var http = require('http');
 var fs = require('fs');
 const url = require('url');
 
-var privateKey  = fs.readFileSync('/root/vvid/vvid/certs/vvid_world.key', 'utf8');
-var certificate = fs.readFileSync('/root/vvid/vvid/certs/bundle.crt', 'utf8');
+var privateKey  = fs.readFileSync('/root/gat/GAT-chain/vvid_world.key', 'utf8');
+var certificate = fs.readFileSync('/root/gat/GAT-chain/bundle.crt', 'utf8');
 
 var credentials = {key: privateKey, cert: certificate};
 
@@ -22,10 +21,9 @@ app.use(jsonParser.urlencoded({ extended: false }))
  
 // parse application/json
 app.use(jsonParser.json())
-app.use("/public", express.static("/root/vvid/public"));
 //initialize a simple http server
-const server = http.createServer(app);
-// const server = https.createServer(credentials, app);
+// const server = http.createServer(app);
+const server = https.createServer(credentials, app);
 
 //initialize the WebSocket server instance
 const wss = new WebSocket.Server({ server });
@@ -325,10 +323,6 @@ app.get("/getIdentityChain", (req, res) => {
   res.send(JSON.stringify({action:"updateChain",chain:GATidenityChain}));
 });
 
-app.get("/.well-known/pki-validation/AB220C4E12766858646D251DF78D5BBD.txt", (req, res) => {
-  res.send("CE657A8D0302B74CE88FBEB9804406426D850E714EF03C40F965833F4894BEEA comodoca.com 6162ce6d3f22c");
-});
-
 app.post("/addNewIdenity", (req, res) => {
   // console.log("New block being added :" + JSON.stringify(req.body));
 
@@ -409,7 +403,7 @@ app.get("/getFiscalChain", (req, res) => {
   res.send(JSON.stringify({action:"updateChain",chain:GATFiscalChain}));
 });
 
-server.listen(process.env.PORT || 80, () => {
+server.listen(process.env.PORT || 4433, () => {
     console.log(`Server started on port ${server.address().port} :)`);
 });
 
